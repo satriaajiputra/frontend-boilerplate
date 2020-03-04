@@ -100,12 +100,24 @@ task("js", function() {
     .pipe(dest("dist/assets/js"));
 });
 
+task("fonts", function(cb) {
+  src("src/assets/fonts/*").pipe(dest("dist/assets/fonts/"));
+  cb();
+});
+
+task("images", function(cb) {
+  src("src/assets/images/*").pipe(dest("dist/assets/images/"));
+  cb();
+});
+
 task("watch", function(cb) {
   browserSync.init({
     server: "./dist",
     notify: false
   });
 
+  watch("src/assets/images/*", task("images"));
+  watch("src/assets/fonts/*", task("fonts"));
   watch("src/**/*.scss", task("scss")).on("change", reload);
   watch("src/**/*.html", task("html")).on("change", reload);
   watch("src/**/*.js", task("js")).on("change", reload);
@@ -115,6 +127,8 @@ task("watch", function(cb) {
 exports.scss = task("scss");
 exports.html = task("html");
 exports.js = task("js");
+exports.fonts = task("fonts");
+exports.images = task("images");
 exports.watch = task("watch");
-exports.default = series("scss", "html", "js", "watch");
-exports.production = series("scss", "html", "js");
+exports.default = series("scss", "html", "js", "fonts", "images", "watch");
+exports.production = series("scss", "html", "js", "fonts", "images");
