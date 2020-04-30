@@ -33,7 +33,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "regenerator-runtime": "^0.13.3",
     "tailwindcss": "^1.2.0"
   }
